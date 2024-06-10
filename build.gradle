@@ -1,78 +1,13 @@
 plugins {
-<<<<<<< HEAD
-    id 'java'
-    id 'io.qameta.allure' version '2.9.6'
-    id "io.freefair.lombok" version "8.2.2"
-=======
 	id 'java'
 	id 'org.springframework.boot' version '3.3.0'
 	id 'io.spring.dependency-management' version '1.1.5'
->>>>>>> c399e14df2b6b9524f2b986317c73e719612da1b
 }
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 
 java {
-<<<<<<< HEAD
-    sourceCompatibility = '17'
-}
-
-repositories {
-    mavenCentral()
-    mavenLocal()
-    jcenter()
-}
-
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
-
-}
-
-allprojects {
-    tasks.withType(JavaCompile) {
-        options.compilerArgs << "-Xlint:none"
-    }
-}
- 
-task cleanAllureResults(type: Delete) {
-    delete 'allure-results'
-}
-
-
-compileJava.options.encoding = "UTF-8"
-compileTestJava.options.encoding = "UTF-8"
-
-
-dependencies {
-	testImplementation 'io.rest-assured:rest-assured:5.3.2'
-    implementation 'io.rest-assured:json-schema-validator:5.4.0'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.11.0-M2'
-    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.1'
-    testImplementation 'org.slf4j:slf4j-simple:1.7.36' 
-	testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.11.0-M2' 
-	implementation 'net.datafaker:datafaker:2.2.2'
-}
-
-test {
-    useJUnitPlatform()
-    systemProperty "allure.results.directory", "$buildDir/allure-results"
-    testLogging {
-        events "passed", "skipped", "failed"
-        exceptionFormat "full"
-        showCauses true
-        showExceptions true
-        showStackTraces true
-    }
-}
-
-allure {
-    version = '2.26.0'
-    autoconfigure = true
-    aspectjweaver = true
-=======
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(17)
 	}
@@ -102,5 +37,4 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
->>>>>>> c399e14df2b6b9524f2b986317c73e719612da1b
 }
