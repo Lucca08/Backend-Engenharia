@@ -1,5 +1,9 @@
 package com.example.backend.Dominio.repositories;
 
-public interface IRepPagamento {
-    
+import com.example.backend.Dominio.model.Pagamento;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface IRepPagamento extends JpaRepository<Pagamento, Long> {
 }
