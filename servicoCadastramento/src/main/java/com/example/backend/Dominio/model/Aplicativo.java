@@ -1,27 +1,19 @@
 package com.example.backend.Dominio.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
-@Getter
+@Data
 @Entity
 public class Aplicativo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codigo;
-    private String  nome;
-    private Double custoMensal;
+    private String nome;
+    private Float custoMensal;
 }
