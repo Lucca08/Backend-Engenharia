@@ -1,5 +1,5 @@
 package com.example.backend.Dominio.repositories;
 
-public class IRepAssinatura {
+public interface IRepAssinatura {
     
 }

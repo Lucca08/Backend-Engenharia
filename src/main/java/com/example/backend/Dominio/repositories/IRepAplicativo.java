@@ -1,5 +1,5 @@
 package com.example.backend.Dominio.repositories;
 
-public class IRepAplicativo {
+public interface IRepAplicativo {
     
 }
