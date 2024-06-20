@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -53,8 +55,19 @@ public class ServicoCadastramento {
         return repAplicativo.findById(id);
     }
 
-    public Aplicativo atualizarAplicativo(Aplicativo aplicativo) {
-        return repAplicativo.save(aplicativo);
+    public Aplicativo atualizarAplicativo(Long id, Aplicativo novosDados) {
+        Optional<Aplicativo> aplicativoExistenteOpt = repAplicativo.findById(id);
+
+        if (aplicativoExistenteOpt.isPresent()) {
+            Aplicativo aplicativoExistente = aplicativoExistenteOpt.get();
+            
+            aplicativoExistente.setNome(novosDados.getNome());
+            aplicativoExistente.setCustoMensal(novosDados.getCustoMensal());
+            
+            return repAplicativo.save(aplicativoExistente);
+        } else {
+            throw new RuntimeException("Aplicativo não encontrado com o ID: " + id);
+        }
     }
 
     public void deletarAplicativo(Long id) {
@@ -71,8 +84,21 @@ public class ServicoCadastramento {
         return repAssinatura.findById(id);
     }
 
-    public Assinatura atualizarAssinatura(Assinatura assinatura) {
-        return repAssinatura.save(assinatura);
+    public Assinatura atualizarAssinatura(Long id, Assinatura novosDados) {
+        Optional<Assinatura> assinaturaExistenteOpt = repAssinatura.findById(id);
+
+        if (assinaturaExistenteOpt.isPresent()) {
+            Assinatura assinaturaExistente = assinaturaExistenteOpt.get();
+            
+            assinaturaExistente.setCodApp(novosDados.getCodApp());
+            assinaturaExistente.setCliente(novosDados.getCliente());
+            assinaturaExistente.setInicioVigencia(novosDados.getInicioVigencia());
+            assinaturaExistente.setFimVigencia(novosDados.getFimVigencia());
+            
+            return repAssinatura.save(assinaturaExistente);
+        } else {
+            throw new RuntimeException("Assinatura não encontrada com o ID: " + id);
+        }
     }
 
     public void deletarAssinatura(Long id) {
@@ -91,9 +117,22 @@ public class ServicoCadastramento {
         return repPagamento.findById(id);
     }
 
-    public Pagamento atualizarPagamento(Pagamento pagamento) {
-        return repPagamento.save(pagamento);
+    public Pagamento atualizarPagamento(Long id, Pagamento novosDados) {
+        Optional<Pagamento> pagamentoExistenteOpt = repPagamento.findById(id);
+    
+        if (pagamentoExistenteOpt.isPresent()) {
+            Pagamento pagamentoExistente = pagamentoExistenteOpt.get();
+            
+            pagamentoExistente.setAssinatura(novosDados.getAssinatura());
+            pagamentoExistente.setValorPago(novosDados.getValorPago());
+            pagamentoExistente.setDataPagamento(novosDados.getDataPagamento());
+            
+            return repPagamento.save(pagamentoExistente);
+        } else {
+            throw new RuntimeException("Pagamento não encontrado com o ID: " + id);
+        }
     }
+    
 
     public void deletarPagamento(Long id) {
         repPagamento.deleteById(id);
