@@ -2,6 +2,8 @@ package com.example.backend.Dominio.services;
 
 import com.example.backend.Dominio.model.*;
 import com.example.backend.Dominio.repository.*;
+
+import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -74,10 +76,22 @@ public class ServicoCadastramento {
         repAplicativo.deleteById(id);
     }
 
-    public Assinatura cadastrarAssinatura(Assinatura assinatura) {
-        LocalDate inicioVigencia = assinatura.getInicioVigencia().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        assinatura.setFimVigencia(Date.from(inicioVigencia.plusDays(7).atStartOfDay(ZoneId.systemDefault()).toInstant()));
-        return repAssinatura.save(assinatura);
+    public Assinatura cadastrarAssinatura(Long clienteId, Long aplicativoCodigo) {
+        Cliente cli = repCliente.buscarClientePorId(clienteId);
+        Aplicativo app = repAplicativo.buscarAplicativoPorId(aplicativoCodigo);
+
+        if (cli.isPresent() && app.isPresent()) {
+            Assinatura ass = new Assinatura();
+            ass.setCliente(clienteId);
+            ass.setCodApp(aplicativoCodigo);
+            assinatura.setInicioVigencia(LocalDate.now());
+            assinatura.setFimVigencia(LocalDate.now().plusDays(7)); // 7 dias grátis
+
+            return repAssinatura.save(ass);
+        }
+        else {
+            throw new RuntimeException("Cliente ou Aplicativo não encontrado");
+        }
     }
 
     public Optional<Assinatura> buscarAssinaturaPorId(Long id) {
@@ -132,9 +146,13 @@ public class ServicoCadastramento {
             throw new RuntimeException("Pagamento não encontrado com o ID: " + id);
         }
     }
-    
 
     public void deletarPagamento(Long id) {
         repPagamento.deleteById(id);
     }
+
+    public List<Cliente> todosClientes()    {
+        
+    }
+
 }
