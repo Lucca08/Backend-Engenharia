@@ -11,9 +11,4 @@ public interface IRepAplicativo extends JpaRepository<Aplicativo, Long> {
     public Aplicativo listarPorId(Long id);
     public Aplicativo listarPorIdAplicativo(Long idAplicativo);
 
-    
-
-
-
-
 }
